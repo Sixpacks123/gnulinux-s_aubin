@@ -1,0 +1,12 @@
+# Fail2ban jail – protects the /login endpoint behind Caddy
+
+[caddy-auth]
+enabled  = true
+filter   = caddy-auth
+logpath  = /var/log/caddy/access.log
+maxretry = 3
+findtime = 10m
+bantime  = 12h
+action   = nftables-multiport[name=caddy-auth, port="80,443"]
+backend  = auto
+

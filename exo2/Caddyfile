@@ -1,0 +1,22 @@
+# ------------------------------------------------------------
+# Caddyfile – Reverse Proxy vers l'application Flask
+# ------------------------------------------------------------
+# Remplacez "example.test" par votre FQDN public. Pour un test
+# local sans DNS, utilisez ":80" (HTTP seulement) ou ajoutez
+# une entrée /etc/hosts « 127.0.0.1 example.test ».
+# ------------------------------------------------------------
+
+example.test {
+    # Compression
+    encode gzip
+
+    # Reverse‑proxy vers l'app Flask (systemd -> 127.0.0.1:5000)
+    reverse_proxy 127.0.0.1:5000
+
+    # Logging commun (Common Log Format) pour Fail2ban
+    log {
+        output file /var/log/caddy/access.log
+        format single_field common_log
+    }
+}
+
